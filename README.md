@@ -7,7 +7,7 @@ This is a library for the [ESP-IDF](https://docs.espressif.com/projects/esp-idf/
 
 ## Supported platforms
 
-This library is designed to work with the ESP-IDF versions 4.0 or later; we have not tested it with earlier versions.  This library should support any ESP32-compatible board.
+This library is designed to work with the ESP-IDF versions 6.0 or later; we have not tested it with earlier versions.  This library should support any ESP32-compatible board.
 
 ## Getting started
 
@@ -43,7 +43,7 @@ This library is intended to provide a quicker and easier way to get started usin
   Constructor.
 
 * `void setAddress(uint8_t new_addr)`<br>
-  Changes the I&sup2;C slave device address of the VL53L0X to the given value (7-bit).
+  Changes the I&sup2;C slave device address of the VL53L0X to the given value (7-bit). At this point it does not affect anything and will be removed. The sensor uses base adress of 0x29.
 
 * `uint8_t getAddress()`<br>
   Returns the I&sup2;C address this object is using.
