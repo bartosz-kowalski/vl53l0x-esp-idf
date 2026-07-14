@@ -4,7 +4,7 @@
 // VL53L0X datasheet.
 
 #include "VL53L0X.h"
-#include <esp_timer.h>
+#include "esp_timer.h"
 #include "i2c.h"
 // #include <Wire.h>
 
@@ -286,49 +286,49 @@ bool VL53L0X::init(bool io_2v8) {
 // Write an 8-bit register
 void VL53L0X::writeReg(uint8_t reg, uint8_t value) {
     uint8_t data[2] = {reg, value};
-    i2c.write(address, data, 2);
+    i2c.write(data, 2);
     last_status = 0;
 }
 
 // Write a 16-bit register
 void VL53L0X::writeReg16Bit(uint8_t reg, uint16_t value) {
     uint8_t data[3] = {reg, (uint8_t)(value >> 8), (uint8_t)value};
-    i2c.write(address, data, 3);
+    i2c.write(data, 3);
     last_status = 0;
 }
 
 // Write a 32-bit register
 void VL53L0X::writeReg32Bit(uint8_t reg, uint32_t value) {
     uint8_t data[5] = {reg, (uint8_t)(value >> 24), (uint8_t)(value >> 16), (uint8_t)(value >> 8), (uint8_t)value};
-    i2c.write(address, data, 5);
+    i2c.write(data, 5);
     last_status = 0;
 }
 
 // Read an 8-bit register
 uint8_t VL53L0X::readReg(uint8_t reg) {
-    i2c.write(address, reg);
+    i2c.write(reg);
     last_status = 0;
     uint8_t value[1];
-    i2c.read(address, value, 1);
+    i2c.read(value, 1);
 
     return value[0];
 }
 
 // Read a 16-bit register
 uint16_t VL53L0X::readReg16Bit(uint8_t reg) {
-    i2c.write(address, reg);
+    i2c.write(reg);
     last_status = 0;
     uint8_t value[2];
-    i2c.read(address, value, 2);
+    i2c.read(value, 2);
     return (uint16_t)(value[0] << 8 | value[1]);
 }
 
 // Read a 32-bit register
 uint32_t VL53L0X::readReg32Bit(uint8_t reg) {
-    i2c.write(address, reg);
+    i2c.write(reg);
     last_status = 0;
     uint8_t value[4];
-    i2c.read(address, value, 4);
+    i2c.read(value, 4);
     return (uint32_t)(value[0] << 24 | value[1] << 16 | value[2] << 8 | value[0]);
 }
 
@@ -340,15 +340,15 @@ void VL53L0X::writeMulti(uint8_t reg, uint8_t const* src, uint8_t count) {
     for (int i = 0; i < count; i++) {
         data[i + 1] = *(src + i);
     }
-    i2c.write(address, data, count + 1);
+    i2c.write(data, count + 1);
     last_status = 0;
 }
 
 // Read an arbitrary number of bytes from the sensor, starting at the given
 // register, into the given array
 void VL53L0X::readMulti(uint8_t reg, uint8_t* dst, uint8_t count) {
-    i2c.write(address, reg);
-    i2c.read(address, dst, count);
+    i2c.write(reg);
+    i2c.read(dst, count);
 }
 
 // Set the return signal rate limit check value in units of MCPS (mega counts

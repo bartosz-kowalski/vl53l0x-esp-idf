@@ -1,9 +1,6 @@
 idf_component_register(
-    SRCS
-        "src/i2c.cpp"
-        "src/VL53L0X.cpp"
-    INCLUDE_DIRS
-        "include"
-    REQUIRES
-        driver
-)
+                        SRCS
+                            "src/i2c.cpp"
+                            "src/VL53L0X.cpp"
+                        INCLUDE_DIRS    "include"
+                        REQUIRES    esp_driver_i2c esp_timer)
