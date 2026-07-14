@@ -9,7 +9,6 @@ class _i2c {
     void read(uint8_t* data, size_t size);
 
    private:
-    int i2c_master_port = 0;
     i2c_master_bus_handle_t bus;
     i2c_master_dev_handle_t sensor;
 };
